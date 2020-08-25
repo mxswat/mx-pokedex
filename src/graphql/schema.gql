@@ -1,0 +1,136 @@
+directive @cacheControl(
+  maxAge: Int
+  scope: CacheControlScope
+) on FIELD_DEFINITION | OBJECT | INTERFACE
+
+type Ability {
+  ability: BaseName
+  is_hidden: Boolean
+  slot: Int
+}
+
+type BaseName {
+  url: String
+  name: String
+}
+
+type BaseResponse {
+  message: String
+  status: Boolean
+  response: JSON
+}
+
+enum CacheControlScope {
+  PUBLIC
+  PRIVATE
+}
+
+type GameIndex {
+  game_index: Int
+  version: BaseName
+}
+
+type HeldItem {
+  item: BaseName
+  version_details: [VersionDetail]
+}
+
+scalar JSON
+
+type Move {
+  move: BaseName
+  version_group_details: [VersionGroupDetail]
+}
+
+type Mutation {
+  hello: BaseResponse
+}
+
+type Pokemon {
+  abilities: [Ability]
+  base_experience: Int
+  forms: [BaseName]
+  game_indices: [GameIndex]
+  height: Int
+  held_items: [HeldItem]
+  id: Int
+  is_default: Boolean
+  location_area_encounters: String
+  moves: [Move]
+  name: String
+  order: Int
+  species: BaseName
+  sprites: Sprite
+  stats: [Stat]
+  types: [Type]
+  weight: Int
+  status: Boolean
+  message: String
+}
+
+type PokemonItem {
+  url: String
+  name: String
+  image: String
+  id: Int
+}
+
+type PokemonList {
+  count: Int
+  next: String
+  previous: String
+  results: [PokemonItem]
+  status: Boolean
+  message: String
+}
+
+type Query {
+  pokemonsByAbility(ability: String!): BaseResponse
+  pokemonsByEggGroup(eggGroup: String!): BaseResponse
+  pokemonsByGender(gender: String!): BaseResponse
+  pokemonsByGrowthRate(growthRate: String!): BaseResponse
+  pokemonsByMove(move: String!): BaseResponse
+  pokemonsByNature(nature: String!): BaseResponse
+  pokemons(limit: Int, offset: Int): PokemonList
+  pokemon(name: String!): Pokemon
+  encounter(encounter: String!): BaseResponse
+  move(move: String!): BaseResponse
+}
+
+type Sprite {
+  back_default: String
+  back_female: String
+  back_shiny: String
+  back_shiny_female: String
+  front_default: String
+  front_female: String
+  front_shiny: String
+  front_shiny_female: String
+}
+
+type Stat {
+  base_stat: Int
+  effort: Int
+  stat: BaseName
+}
+
+type Type {
+  slot: Int
+  type: BaseName
+}
+
+# The `Upload` scalar type
+ represents a file upload.
+scalar Upload
+
+type VersionDetail {
+  rarity: Int
+  version: BaseName
+}
+
+type VersionGroupDetail {
+  level_learned_at: Int
+  move_learn_method: BaseName
+  version_group: BaseName
+}
+
