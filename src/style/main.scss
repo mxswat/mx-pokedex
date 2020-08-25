@@ -1,5 +1,9 @@
 @import "./variables.scss";
 
+body, html {
+    margin: 0;
+}
+
 @media (prefers-color-scheme: dark) {
     body {
         background: $bg-lv3;
