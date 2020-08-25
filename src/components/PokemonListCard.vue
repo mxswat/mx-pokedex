@@ -1,6 +1,13 @@
 <template>
   <div class="poke-card">
-    <img src alt srcset />
+    <img
+      :src="pokemon.image"
+      :title="`A photo of the pokemon called: ${pokemon.name}`"
+      class="poke-img"
+    />
+    <div class="name-container">
+      <span>{{pokemon.name}}</span>
+    </div>
   </div>
 </template>
 
@@ -10,7 +17,7 @@ export default {
   props: ["pokemon"],
   components: {},
   data() {
-      return {}
+    return {};
   },
   methods: {},
   created() {
@@ -18,3 +25,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.name-container {
+  text-transform: capitalize;
+}
+</style>

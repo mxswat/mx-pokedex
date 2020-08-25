@@ -13,10 +13,12 @@
 
         <!-- Result -->
         <div v-else-if="data" class="result apollo poke-list">
-          {{ data.pokemons.results.length }}
-          <PokemonListCard :pokemon="pokemon" v-for="pokemon in data.pokemons.results" :key="pokemon.id"></PokemonListCard>
+          <PokemonListCard
+            :pokemon="pokemon"
+            v-for="pokemon in data.pokemons.results"
+            :key="pokemon.id"
+          ></PokemonListCard>
         </div>
-
         <!-- No result -->
         <div v-else class="no-result apollo">No result :(</div>
       </template>
@@ -40,3 +42,11 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.poke-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 8px 8px;
+}
+</style>
