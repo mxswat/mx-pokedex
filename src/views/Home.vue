@@ -12,7 +12,10 @@
         <div v-else-if="error" class="error apollo">An error occured</div>
 
         <!-- Result -->
-        <div v-else-if="data" class="result apollo">{{ data.pokemons.results.length }}</div>
+        <div v-else-if="data" class="result apollo poke-list">
+          {{ data.pokemons.results.length }}
+          <PokemonListCard :pokemon="pokemon" v-for="pokemon in data.pokemons.results" :key="pokemon.id"></PokemonListCard>
+        </div>
 
         <!-- No result -->
         <div v-else class="no-result apollo">No result :(</div>
@@ -23,17 +26,17 @@
 
 <script>
 // @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
+import PokemonListCard from "@/components/PokemonListCard.vue";
 
 export default {
   name: "Home",
   components: {
-    // HelloWorld
+    PokemonListCard,
   },
-  data () {
+  data() {
     return {
       limit: 1050, //1048 is the number of pokemon now!
-    }
-  }
+    };
+  },
 };
 </script>
