@@ -16,7 +16,7 @@
           <PokemonListCard
             :pokemon="pokemon"
             v-for="pokemon in data.pokemons.results"
-            :key="pokemon.id"
+            :key="pokemon.name"
           ></PokemonListCard>
         </div>
         <!-- No result -->

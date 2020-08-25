@@ -18,6 +18,10 @@ body, html {
     }
 }
 
+.capitalize {
+    text-transform: capitalize;
+}
+
 a {
     color: $accent-1;
     // &:visited {

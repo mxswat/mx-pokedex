@@ -6,7 +6,9 @@
       class="poke-img"
     />
     <div class="name-container">
-      <span>{{pokemon.name}}</span>
+      <router-link :to="{ name: 'Pokemon', params: { name: pokemon.name }}">
+        <span>{{pokemon.name}}</span>
+      </router-link>
     </div>
   </div>
 </template>
@@ -21,7 +23,7 @@ export default {
   },
   methods: {},
   created() {
-    console.log("this.pokemon", this.pokemon);
+    // console.log("this.pokemon", this.pokemon);
   },
 };
 </script>
