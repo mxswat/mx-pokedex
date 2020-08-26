@@ -13,34 +13,56 @@
             <span class="poke-id">#{{data.pokemon.id}}</span>
           </h1>
           <div class="sprites">
-            <img :src="data.pokemon.sprites.front_default" alt srcset />
-            <img :src="data.pokemon.sprites.back_default" alt srcset />
-            <img :src="data.pokemon.sprites.front_shiny" alt srcset />
-            <img :src="data.pokemon.sprites.back_shiny" alt srcset />
+            <div class="sprite-container" v-for="(sprite, index) in sprites" v-bind:key="index">
+              <img :src="data.pokemon.sprites[sprite]" alt />
+            </div>
           </div>
-          <div class="poke-detail">
-            <span>Types</span>
+          <div class="types-container">
+            <span class="label">Types:</span>
             <div class="types">
               <span
-                class="type"
+                class="type-label"
                 :class="type.type.name"
                 v-for="type in data.pokemon.types"
                 v-bind:key="type.type.name"
               >{{type.type.name}}</span>
             </div>
+          </div>
+          <div class="abilities-container">
             <div class="abilities">
-              <span>Abilities</span>
+              <span class="label">Abilities:</span>
               <span
+                class="ability"
                 v-for="ability in data.pokemon.abilities"
                 v-bind:key="ability.ability.name"
               >{{ability.ability.name}}</span>
             </div>
+          </div>
+          <div class="moves-container">
             <div class="moves">
-              <span>Moves</span>
-              <span
-                v-for="move in data.pokemon.moves"
-                v-bind:key="move.move.name"
-              >{{move.move.name}}</span>
+              <span class="moves-title">Moves</span>
+              <div class="moves-list">
+                <ApolloQuery
+                  v-for="move in data.pokemon.moves.slice(0, 5)"
+                  v-bind:key="move.move.name"
+                  :query="require('../graphql/Move.gql')"
+                  :variables="{ move: move.move.name }"
+                  class="move-wrap"
+                >
+                  <template slot-scope="{ result: { loading, error, data } }">
+                    <!-- Loading -->
+                    <template v-if="loading" class="loading apollo">Loading...</template>
+                    <!-- Error -->
+                    <template v-else-if="error" class="error apollo">An error occured</template>
+                    <!-- Result -->
+                    <template v-else-if="data" class="result apollo">
+                      <Move :move="data.move"></Move>
+                    </template>
+                    <!-- No result -->
+                    <template v-else class="no-result apollo">No result :(</template>
+                  </template>
+                </ApolloQuery>
+              </div>
             </div>
           </div>
         </div>
@@ -52,89 +74,91 @@
 </template>
 
 <script>
+import Move from "@/components/Move.vue";
 export default {
   name: "Pokemon",
   created() {
     this.name = this.$route.params.name;
+  },
+  components: {
+    Move,
   },
   data() {
     return {
       name: null,
       pokemon: null,
       result: null,
+      sprites: ["front_default", "back_default", "front_shiny", "back_shiny"],
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
+@import "../style/types.scss";
+@import "../style/variables.scss";
+
 .poke-id {
   font-size: 20px;
 }
-span.type {
-  padding: 16px;
+
+.types-container,
+.abilities-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 16px;
+  .label {
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 34px;
+  }
+
+  .type {
+    padding: 8px 16px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 0px 8px;
+  }
+  .types {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.ability {
   text-transform: uppercase;
   font-weight: bold;
   margin: 0px 8px;
 }
-.types {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+.moves-title {
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 34px;
 }
 
-.bug {
-  color: #a8b820;
+.sprites {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 150px));
+  justify-items: center;
+  justify-content: center;
+  gap: 8px 8px;
+  margin-bottom: 16px;
 }
-.dark {
-  color: #705848;
+
+.moves-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  justify-items: center;
+  gap: 8px 8px;
+  padding: 16px;
 }
-.dragon {
-  color: #7038f8;
-}
-.electric {
-  color: #f8d030;
-}
-.fairy {
-  color: #ee99ac;
-}
-.fighting {
-  color: #c03028;
-}
-.fire {
-  color: #f08030;
-}
-.flying {
-  color: #a890f0;
-}
-.ghost {
-  color: #705898;
-}
-.grass {
-  color: #78c850;
-}
-.ground {
-  color: #e0c068;
-}
-.ice {
-  color: #98d8d8;
-}
-.normal {
-  color: #a8a878;
-}
-.poison {
-  color: #a040a0;
-}
-.psychic {
-  color: #f85888;
-}
-.rock {
-  color: #b8a038;
-}
-.steel {
-  color: #b8b8d0;
-}
-.water {
-  color: #6890f0;
+
+.move-wrap {
+  background: $bg-lv2;
+  width: 100%;
+  border-radius: 4px;
 }
 </style>

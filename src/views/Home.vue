@@ -47,6 +47,7 @@ export default {
 .poke-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  justify-items: center;
   gap: 8px 8px;
 }
 </style>

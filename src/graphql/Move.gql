@@ -1,0 +1,7 @@
+query move ($move: String!) {
+    move(move: $move) {
+        message
+        status
+        response
+    }
+}

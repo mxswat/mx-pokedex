@@ -1,15 +1,15 @@
 <template>
   <div class="poke-card">
-    <img
-      :src="pokemon.image"
-      :title="`A photo of the pokemon called: ${pokemon.name}`"
-      class="poke-img"
-    />
-    <div class="name-container">
-      <router-link :to="{ name: 'Pokemon', params: { name: pokemon.name }}">
+    <router-link :to="{ name: 'Pokemon', params: { name: pokemon.name }}">
+      <img
+        :src="pokemon.image"
+        :title="`A photo of the pokemon called: ${pokemon.name}`"
+        class="poke-img"
+      />
+      <div class="name-container">
         <span>{{pokemon.name}}</span>
-      </router-link>
-    </div>
+      </div>
+    </router-link>
   </div>
 </template>
 
@@ -31,5 +31,6 @@ export default {
 <style lang="scss">
 .name-container {
   text-transform: capitalize;
+  font-weight: bold;
 }
 </style>
