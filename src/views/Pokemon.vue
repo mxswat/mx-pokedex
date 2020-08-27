@@ -1,6 +1,6 @@
 <template>
   <div class="pokemon-detail">
-    <ApolloQuery :query="require('../graphql/Pokemon.gql')" :variables="{ name }">
+    <ApolloQuery :query="require('../graphql/Pokemon.gql')" :variables="{ name: $route.params.name }">
       <template slot-scope="{ result: { loading, error, data } }">
         <!-- Loading -->
         <div v-if="loading" class="loading apollo">Loading...</div>
@@ -83,14 +83,7 @@ import { Component } from "vue-property-decorator";
   },
 })
 export default class Home extends Vue {
-  name = '';
-  pokemon: any = null;
-  result: any = null;
   sprites = ["front_default", "back_default", "front_shiny", "back_shiny"];
-
-  created() {
-    this.name = this.$route.params.name;
-  }
 }
 </script>
 
