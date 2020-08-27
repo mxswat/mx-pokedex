@@ -2,7 +2,7 @@
   <div class="poke-card">
     <router-link :to="{ name: 'Pokemon', params: { name: pokemon.name }}">
       <img
-        :src="pokemon.image"
+        v-lazy="pokemon.image"
         :title="`A photo of the pokemon called: ${pokemon.name}`"
         class="poke-img"
       />
