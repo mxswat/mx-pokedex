@@ -10,6 +10,7 @@
       <div class="arrow-down"></div>
     </label>
     <div class="info">
+      <span class="desc"> {{move.response.effect_entries[0].effect}}</span>
       <span>PP: {{move.response.pp}}</span>
       <span>Accuracy: {{move.response.accuracy || 'none'}}</span>
       <span>Power: {{move.response.power || 'none'}}</span>
@@ -47,6 +48,10 @@ export default class Move extends Vue {
   span {
     margin-top: 8px;
     text-align: left;
+  }
+  .desc {
+    // Take full row
+    grid-column: 1 / -1;
   }
 }
 

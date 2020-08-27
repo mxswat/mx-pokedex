@@ -5,7 +5,7 @@
     <!-- Apollo watched Graphql query -->
     <div v-if="$apollo.loading">Loading...</div>
     <template v-if="pokemons">
-      <input type="text" id="Search" placeholder="Search..." v-debounce:300ms="debounceSearch" />
+      <input type="text" class="search" placeholder="Search..." v-debounce:300ms="debounceSearch" />
       <div class="poke-list">
         <PokemonListCard
           :pokemon="pokemon"
@@ -76,5 +76,13 @@ export default class Home extends Vue {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   justify-items: center;
   gap: 8px 8px;
+}
+
+.search {
+  font-size: 20px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 0px;
+  margin-bottom: 16px;
 }
 </style>
