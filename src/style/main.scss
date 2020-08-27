@@ -9,12 +9,18 @@ body, html {
         background: $bg-lv3;
         color: white;
     }
+    .bg-lv2 {
+        background: $bg-lv2;
+    }
 }
 
 @media (prefers-color-scheme: light) {
     body {
         background: invert($bg-lv3);
         color: black;
+    }
+    .bg-lv2 {
+        background: invert($bg-lv2);
     }
 }
 

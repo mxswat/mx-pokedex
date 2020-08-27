@@ -47,7 +47,7 @@
                   v-bind:key="move.move.name"
                   :query="require('../graphql/Move.gql')"
                   :variables="{ move: move.move.name }"
-                  class="move-wrap"
+                  class="move-wrap bg-lv2"
                 >
                   <template slot-scope="{ result: { loading, error, data } }">
                     <!-- Loading -->
@@ -157,7 +157,6 @@ export default {
 }
 
 .move-wrap {
-  background: $bg-lv2;
   width: 100%;
   border-radius: 4px;
 }
