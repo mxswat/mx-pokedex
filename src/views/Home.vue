@@ -5,7 +5,7 @@
     <!-- Apollo watched Graphql query -->
     <div v-if="$apollo.loading">Loading...</div>
     <template v-if="pokemons">
-      <input type="text" id="Search" placeholder="Search..." v-debounce:300ms="debounceSearch"/>
+      <input type="text" id="Search" placeholder="Search..." v-debounce:300ms="debounceSearch" />
       <div class="poke-list">
         <PokemonListCard
           :pokemon="pokemon"
@@ -17,34 +17,16 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 // @ is an alias to /src
 import PokemonListCard from "@/components/PokemonListCard.vue";
 import gql from "graphql-tag";
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
 
-export default {
-  name: "Home",
+@Component({
   components: {
     PokemonListCard,
-  },
-  data() {
-    return {
-      limit: 1048, //1048 is the number of pokemon now!
-      searchText: "",
-    };
-  },
-  methods: {
-    debounceSearch(text) {
-      this.searchText = text;
-    },
-    filter(source, text) {
-      let result = source;
-      const _text = text.toLowerCase();
-      if (_text) {
-        result = source.filter((pkmn) => pkmn.name.indexOf(_text) > -1);
-      }
-      return result;
-    },
   },
   apollo: {
     pokemons: {
@@ -70,7 +52,22 @@ export default {
       },
     },
   },
-};
+})
+export default class Home extends Vue {
+  limit = 1048; //1048 is the number of pokemon now!
+  searchText = "";
+  debounceSearch(text) {
+    this.searchText = text;
+  }
+  filter(source, text) {
+    let result = source;
+    const _text = text.toLowerCase();
+    if (_text) {
+      result = source.filter((pkmn) => pkmn.name.indexOf(_text) > -1);
+    }
+    return result;
+  }
+}
 </script>
 
 <style lang="scss">

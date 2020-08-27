@@ -51,6 +51,7 @@ export default {
   display: none;
   span {
     margin-top: 8px;
+    text-align: left;
   }
 }
 
@@ -60,9 +61,7 @@ input.css-dropdown {
     ~ div.info {
       // display: flex;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(96px, 150px));
-      justify-items: center;
-      justify-content: center;
+      grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
     }
     ~ label .arrow-down {
       transform: rotate(180deg);
