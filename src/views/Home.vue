@@ -37,16 +37,18 @@ import { Component } from "vue-property-decorator";
 })
 export default class Home extends Vue {
   limit = 1048; //1048 is the number of pokemon now!
-  query = '';
+  query = "";
   pokemons: Array<any> = [];
   debounceSearch(query) {
     this.query = query;
   }
 
   get pokemonsFiltered(): Array<any> {
-    if (! this.query) return this.pokemons;
+    if (!this.query) return this.pokemons;
     const lowerCaseQuery = this.query.toLowerCase();
-    return this.pokemons.filter(({ name }) => name.toLowerCase().includes(lowerCaseQuery));
+    return this.pokemons.filter(({ name }) =>
+      name.toLowerCase().includes(lowerCaseQuery)
+    );
   }
 }
 </script>
