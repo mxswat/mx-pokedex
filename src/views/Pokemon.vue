@@ -73,25 +73,25 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Move from "@/components/Move.vue";
-export default {
-  name: "Pokemon",
-  created() {
-    this.name = this.$route.params.name;
-  },
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
+@Component({
   components: {
     Move,
   },
-  data() {
-    return {
-      name: null,
-      pokemon: null,
-      result: null,
-      sprites: ["front_default", "back_default", "front_shiny", "back_shiny"],
-    };
-  },
-};
+})
+export default class Home extends Vue {
+  name = '';
+  pokemon: any = null;
+  result: any = null;
+  sprites = ["front_default", "back_default", "front_shiny", "back_shiny"];
+
+  created() {
+    this.name = this.$route.params.name;
+  }
+}
 </script>
 
 <style lang="scss" scoped>
