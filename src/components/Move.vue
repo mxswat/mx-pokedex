@@ -18,19 +18,14 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "Move",
-  props: ["move"],
-  components: {},
-  data() {
-    return {};
-  },
-  methods: {},
-  created() {
-    // console.log("this.pokemon", this.pokemon);
-  },
-};
+<script lang="ts">
+import { Component, Prop } from "vue-property-decorator";
+import Vue from "vue";
+
+@Component({})
+export default class Move extends Vue {
+  @Prop() private move!: string;
+}
 </script>
 
 <style lang="scss" scoped>

@@ -12,20 +12,14 @@
     </router-link>
   </div>
 </template>
+<script lang="ts">
+import { Component, Prop } from "vue-property-decorator";
+import Vue from "vue";
 
-<script>
-export default {
-  name: "PokemonListCard",
-  props: ["pokemon"],
-  components: {},
-  data() {
-    return {};
-  },
-  methods: {},
-  created() {
-    // console.log("this.pokemon", this.pokemon);
-  },
-};
+@Component({})
+export default class PokemonListCard extends Vue {
+  @Prop() private pokemon!: string;
+}
 </script>
 
 <style lang="scss">
