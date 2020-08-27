@@ -43,7 +43,7 @@
               <span class="moves-title">Moves</span>
               <div class="moves-list">
                 <ApolloQuery
-                  v-for="move in data.pokemon.moves.slice(0, 5)"
+                  v-for="move in data.pokemon.moves"
                   v-bind:key="move.move.name"
                   :query="require('../graphql/Move.gql')"
                   :variables="{ move: move.move.name }"

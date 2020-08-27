@@ -4,25 +4,19 @@ import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
-  const routes: Array<RouteConfig> = [
+const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'Home',
     component: Home
   },
-  {
-    path: '/search',
-    name: 'Search/:name',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Search.vue')
-  },
+  // Redirect to Home or 404 if no :name is found
+  { path: '/pokemon', redirect: { name: 'Home' } },
   {
     path: '/pokemon/:name',
     name: 'Pokemon',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Pokemon.vue')
-  }
+    component: () => import('../views/Pokemon.vue'),
+  },
 ]
 
 const router = new VueRouter({
