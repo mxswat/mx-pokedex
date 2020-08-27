@@ -4,14 +4,10 @@
     <h3>Click on any pokemon or use the search</h3>
     <!-- Apollo watched Graphql query -->
     <div v-if="$apollo.loading">Loading...</div>
-    <template v-if="pokemons">
+    <template v-if="!$apollo.loading && pokemons">
       <input type="text" class="search" placeholder="Search..." v-debounce:300ms="debounceSearch" />
       <div class="poke-list">
-        <PokemonListCard
-          :pokemon="pokemon"
-          v-for="pokemon in filter(pokemons.results, searchText)"
-          :key="pokemon.name"
-        ></PokemonListCard>
+        <PokemonListCard :pokemon="pokemon" v-for="pokemon in pokemonsFiltered" :key="pokemon.name"></PokemonListCard>
       </div>
     </template>
   </div>
@@ -20,7 +16,6 @@
 <script lang="ts">
 // @ is an alias to /src
 import PokemonListCard from "@/components/PokemonListCard.vue";
-import gql from "graphql-tag";
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
@@ -30,25 +25,13 @@ import { Component } from "vue-property-decorator";
   },
   apollo: {
     pokemons: {
-      query: gql`
-        query pokemons($limit: Int, $offset: Int) {
-          pokemons(limit: $limit, offset: $offset) {
-            count
-            next
-            previous
-            status
-            message
-            results {
-              id
-              url
-              name
-              image
-            }
-          }
-        }
-      `,
+      query: require("../graphql/PokemonHome.gql"),
       variables: {
         limit: 1048,
+      },
+      result(result) {
+        this.pokemonsFiltered = result.data.pokemons.results;
+        this.pokemons = result.data.pokemons.results;
       },
     },
   },
@@ -56,16 +39,21 @@ import { Component } from "vue-property-decorator";
 export default class Home extends Vue {
   limit = 1048; //1048 is the number of pokemon now!
   searchText = "";
-  debounceSearch(text) {
-    this.searchText = text;
+  pokemonsFiltered: Array<any> = [];
+  pokemons: Array<any> = [];
+  debounceSearch(query) {
+    this.pokemonsFiltered =
+      query && query.toLowerCase()
+        ? this.pokemons.filter(({ name }) =>
+            name.toLowerCase().includes(query.toLowerCase())
+          )
+        : this.pokemons;
   }
-  filter(source, text) {
-    let result = source;
-    const _text = text.toLowerCase();
-    if (_text) {
-      result = source.filter((pkmn) => pkmn.name.indexOf(_text) > -1);
+  updated() {
+    if (this.pokemons.length !== this.pokemonsFiltered.length) {
+      // Force lazyload to check for images if a search is done
+      this.$Lazyload.lazyLoadHandler();
     }
-    return result;
   }
 }
 </script>
