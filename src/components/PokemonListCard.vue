@@ -1,25 +1,27 @@
-<template>
+<template functional>
   <div class="poke-card">
-    <router-link :to="{ name: 'Pokemon', params: { name: pokemon.name }}">
+    <router-link :to="{ name: 'Pokemon', params: { name: props.pokemon.name }}">
       <img
-        v-lazy="pokemon.image"
-        :title="`A photo of the pokemon called: ${pokemon.name}`"
+        v-lazy="props.pokemon.image"
+        :title="`A photo of the pokemon called: ${props.pokemon.name}`"
         class="poke-img"
       />
       <div class="name-container">
-        <span>{{pokemon.name}}</span>
+        <span>{{props.pokemon.name}}</span>
       </div>
     </router-link>
   </div>
 </template>
-<script lang="ts">
-import { Component, Prop } from "vue-property-decorator";
-import Vue from "vue";
 
-@Component({})
-export default class PokemonListCard extends Vue {
-  @Prop() private pokemon!: string;
-}
+<script>
+export default {
+  name: "BasicTile",
+  props: {
+    pokemon: {
+      required: true,
+    }
+  }
+};
 </script>
 
 <style lang="scss">
