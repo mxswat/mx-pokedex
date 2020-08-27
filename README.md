@@ -1,4 +1,4 @@
-# mx-pokedex
+# Welcome to mx-pokedex
 
 ## Project setup
 ```
@@ -15,10 +15,4 @@ npm run serve
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+You can find the lastes build on http://pizzadb.altervista.org/
