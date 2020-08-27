@@ -30,7 +30,6 @@ import { Component } from "vue-property-decorator";
         limit: 1048,
       },
       result(result) {
-        this.pokemonsFiltered = result.data.pokemons.results;
         this.pokemons = result.data.pokemons.results;
       },
     },
@@ -38,22 +37,16 @@ import { Component } from "vue-property-decorator";
 })
 export default class Home extends Vue {
   limit = 1048; //1048 is the number of pokemon now!
-  searchText = "";
-  pokemonsFiltered: Array<any> = [];
+  query = '';
   pokemons: Array<any> = [];
   debounceSearch(query) {
-    this.pokemonsFiltered =
-      query && query.toLowerCase()
-        ? this.pokemons.filter(({ name }) =>
-            name.toLowerCase().includes(query.toLowerCase())
-          )
-        : this.pokemons;
+    this.query = query;
   }
-  updated() {
-    if (this.pokemons.length !== this.pokemonsFiltered.length) {
-      // Force lazyload to check for images if a search is done
-      this.$Lazyload.lazyLoadHandler();
-    }
+
+  get pokemonsFiltered(): Array<any> {
+    if (! this.query) return this.pokemons;
+    const lowerCaseQuery = this.query.toLowerCase();
+    return this.pokemons.filter(({ name }) => name.toLowerCase().includes(lowerCaseQuery));
   }
 }
 </script>
