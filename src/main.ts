@@ -9,7 +9,9 @@ import vueDebounce from 'vue-debounce'
 Vue.use(vueDebounce);
 
 import VueLazyload from 'vue-lazyload'
-Vue.use(VueLazyload)
+Vue.use(VueLazyload, {
+  loading: '/loading.svg',
+})
 
 new Vue({
   router,
