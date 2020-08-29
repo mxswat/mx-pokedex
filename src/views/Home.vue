@@ -56,9 +56,10 @@ export default class Home extends Vue {
 <style lang="scss">
 .poke-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
   justify-items: center;
   gap: 8px 8px;
+  padding: 0px 8px;
 }
 
 .search {
