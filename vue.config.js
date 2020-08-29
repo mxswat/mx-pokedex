@@ -2,7 +2,7 @@
 module.exports = {
     // runtimeCompiler: true,
     publicPath: process.env.NODE_ENV === 'production'
-    ? '/'
+    ? '/dist'
     : '/'
 }
 // TODO https://medium.com/hceverything/how-to-show-your-app-version-from-package-json-in-your-vue-application-11e882b97d8c

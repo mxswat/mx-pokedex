@@ -1,6 +1,9 @@
 <template>
   <div class="pokemon-detail">
-    <ApolloQuery :query="require('../graphql/Pokemon.gql')" :variables="{ name: $route.params.name }">
+    <ApolloQuery
+      :query="require('../graphql/Pokemon.gql')"
+      :variables="{ name: $route.params.name }"
+    >
       <template slot-scope="{ result: { loading, error, data } }">
         <!-- Loading -->
         <div v-if="loading" class="loading apollo">Loading...</div>
@@ -12,13 +15,7 @@
             {{data.pokemon.name}}
             <span class="poke-id">#{{data.pokemon.id}}</span>
           </h1>
-          <div class="sprites">
-            <div class="sprite-container" v-for="(sprite, index) in sprites" v-bind:key="index">
-              <img :src="data.pokemon.sprites[sprite]" alt />
-            </div>
-          </div>
           <div class="types-container">
-            <span class="label">Types:</span>
             <div class="types">
               <span
                 class="type-label"
@@ -28,6 +25,21 @@
               >{{type.type.name}}</span>
             </div>
           </div>
+          <div class="pkmn-img-stats">
+            <div class="sprites">
+              <h3 class="fll-row">Sprites</h3>
+              <div class="sprite-container" v-for="(sprite, index) in sprites" v-bind:key="index">
+                <img :src="data.pokemon.sprites[sprite]" alt />
+              </div>
+            </div>
+            <div class="stats">
+              <h3 class="fll-row">Stats</h3>
+              <div class="stat" v-for="stat in data.pokemon.stats" v-bind:key="stat.stat.name">
+                <span class="name">{{stat.stat.name | cleanDash}}</span>
+                <span class="value">{{stat.base_stat}}</span>
+              </div>
+            </div>
+          </div>
           <div class="abilities-container">
             <div class="abilities">
               <span class="label">Abilities:</span>
@@ -35,7 +47,7 @@
                 class="ability"
                 v-for="ability in data.pokemon.abilities"
                 v-bind:key="ability.ability.name"
-              >{{ability.ability.name}}</span>
+              >{{ability.ability.name | cleanDash}}</span>
             </div>
           </div>
           <div class="moves-container">
@@ -80,6 +92,11 @@ import { Component } from "vue-property-decorator";
 @Component({
   components: {
     Move,
+  },
+  filters: {
+    cleanDash(text: string) {
+      return text.replace(/-/g, " ");
+    },
   },
 })
 export default class Home extends Vue {
@@ -134,11 +151,27 @@ export default class Home extends Vue {
 
 .sprites {
   display: grid;
+  width: 100%;
   grid-template-columns: repeat(auto-fit, minmax(96px, 150px));
   justify-items: center;
   justify-content: center;
   gap: 8px 8px;
   margin-bottom: 16px;
+}
+
+.stats {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  .stat {
+    .name {
+      text-transform: capitalize;
+      margin-right: 24px;
+    }
+    .value {
+      margin-left: auto;
+    }
+  }
 }
 
 .moves-list {
@@ -152,5 +185,16 @@ export default class Home extends Vue {
 .move-wrap {
   width: 100%;
   border-radius: 4px;
+}
+
+.pkmn-img-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 350px));
+  justify-items: center;
+  justify-content: center;
+}
+
+.fll-row {
+  grid-column: 1 / -1;
 }
 </style>
