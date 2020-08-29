@@ -18,7 +18,7 @@
 import PokemonListCard from "@/components/PokemonListCard.vue";
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-
+import { PokemonHome } from "@/types/pokemonHome";
 @Component({
   components: {
     PokemonListCard,
@@ -38,12 +38,12 @@ import { Component } from "vue-property-decorator";
 export default class Home extends Vue {
   limit = 1048; //1048 is the number of pokemon now!
   query = "";
-  pokemons: Array<any> = [];
+  pokemons: Array<PokemonHome> = [];
   debounceSearch(query) {
     this.query = query;
   }
 
-  get pokemonsFiltered(): Array<any> {
+  get pokemonsFiltered(): Array<PokemonHome> {
     if (!this.query) return this.pokemons;
     const lowerCaseQuery = this.query.toLowerCase();
     return this.pokemons.filter(({ name }) =>
