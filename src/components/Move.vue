@@ -61,7 +61,7 @@ input.css-dropdown {
     ~ div.info {
       // display: flex;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     }
     ~ label .arrow-down {
       transform: rotate(180deg);
