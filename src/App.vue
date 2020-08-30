@@ -43,9 +43,6 @@
   position: relative;
   a {
     font-weight: bold;
-
-    &.router-link-exact-active {
-    }
   }
 }
 </style>
