@@ -118,6 +118,7 @@ export default class Home extends Vue {
   flex-direction: row;
   justify-content: center;
   margin-bottom: 16px;
+  margin-top: 16px;
   .label {
     font-weight: bold;
     text-transform: uppercase;
@@ -164,6 +165,7 @@ export default class Home extends Vue {
   flex: 1 1 auto;
   flex-direction: column;
   .stat {
+    display: flex;
     .name {
       text-transform: capitalize;
       margin-right: 24px;
