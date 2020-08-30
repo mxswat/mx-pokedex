@@ -29,7 +29,7 @@
             <div class="sprites">
               <h3 class="fll-row">Sprites</h3>
               <div class="sprite-container" v-for="(sprite, index) in sprites" v-bind:key="index">
-                <img :src="data.pokemon.sprites[sprite]" alt />
+                <img :src="data.pokemon.sprites[sprite]" :title="spriteLocale[index] + data.pokemon.name" />
               </div>
             </div>
             <div class="stats">
@@ -101,6 +101,7 @@ import { Component } from "vue-property-decorator";
 })
 export default class Home extends Vue {
   sprites = ["front_default", "back_default", "front_shiny", "back_shiny"];
+  spriteLocale = ["Front ", "Back ", "Front shiny ", "Back shiny "];
 }
 </script>
 
